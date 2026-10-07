@@ -1,5 +1,4 @@
-# Lint and format check: catches mistakes like unused variables, and code that isn't formatted the same way as the rest.
-# Switch it on: copy this file into .github/workflows/ and push.
+# Lint and format checks for every pull request and push to main.
 name: Lint and format
 
 on:
