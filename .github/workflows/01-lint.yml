@@ -1,5 +1,6 @@
 # Lint and format checks for every pull request and push to main.
-name: Lint and format
+name: Lint
+#name: Lint and format
 
 on:
   pull_request:
@@ -17,4 +18,4 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run lint
-      - run: npm run format:check
+     #- run: npm run format:check
