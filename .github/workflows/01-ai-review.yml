@@ -32,7 +32,7 @@ jobs:
           {
             echo "## Pull request: $TITLE"; echo "$BODY"; echo
             echo "## Diff"; git diff "origin/$BASE...HEAD" -- . ':!package-lock.json'
-          } | scripts/ask-model.sh recipes/probabilistic/prompts/review.md > answer.md
+          } | bash scripts/ask-model.sh recipes/probabilistic/prompts/review.md > answer.md
           cat answer.md
       - name: Comment on the pull request
         env:
