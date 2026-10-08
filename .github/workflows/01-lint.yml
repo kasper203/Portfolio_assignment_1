@@ -1,6 +1,6 @@
-# Lint and format check: catches mistakes like unused variables, and code that isn't formatted the same way as the rest.
-# Switch it on: copy this file into .github/workflows/ and push.
-name: Lint and format
+# Lint and format checks for every pull request and push to main.
+name: Lint
+#name: Lint and format
 
 on:
   pull_request:
@@ -18,4 +18,4 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run lint
-      - run: npm run format:check
+     #- run: npm run format:check

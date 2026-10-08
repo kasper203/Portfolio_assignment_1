@@ -1,40 +1,36 @@
-import _ from "lodash";
 import "./styles.css";
-import { analytics } from "./config";
-import { site } from "./content";
-import { totalPrice } from "./lib/price";
 
 const app = document.querySelector<HTMLElement>("#app")!;
 
 app.innerHTML = `
-  <header>
-    <img src="/logo.svg" width="64" height="64" />
-    <p class="host">${_.escape(site.name)} presents</p>
+  <header class="site-header">
+    <a class="brand" href="/">Your Name</a>
+    <nav aria-label="Main navigation">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
   </header>
-  <h1>${_.escape(site.event)}</h1>
-  <p class="date">${_.escape(site.date)} ${site.year}</p>
-  <form id="order">
-    <label>Tickets <input name="quantity" type="number" min="0" max="50" value="1" /></label>
-    <label><input name="student" type="checkbox" /> I'm a student</label>
-    <p class="total">Total: <output name="total"></output> DKK</p>
-  </form>
+  <main>
+    <section class="intro" aria-labelledby="intro-title">
+      <p class="eyebrow">Portfolio</p>
+      <h1 id="intro-title">A short introduction goes here.</h1>
+      <p class="intro-copy">Use this space to describe who you are, what you make, and what you care about.</p>
+    </section>
+    <section id="work" aria-labelledby="work-title">
+      <h2 id="work-title">Selected work</h2>
+      <div class="project-grid">
+        <article class="project"><h3>Project one</h3><p>Add a short description of your work.</p></article>
+        <article class="project"><h3>Project two</h3><p>Add a short description of your work.</p></article>
+      </div>
+    </section>
+    <section id="about" aria-labelledby="about-title">
+      <h2 id="about-title">About</h2>
+      <p>Add your background, skills, and interests here.</p>
+    </section>
+    <section id="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title">Contact</h2>
+      <p><a href="mailto:hello@example.com">hello@example.com</a></p>
+    </section>
+  </main>
 `;
-
-const form = app.querySelector<HTMLFormElement>("#order")!;
-const output = form.querySelector("output")!;
-
-function update() {
-  const quantity = Number(form.quantity.value) || 0;
-  const student = form.student.checked;
-  output.textContent = String(
-    totalPrice(site.ticketPrice, { quantity, student }),
-  );
-}
-
-form.addEventListener("input", update);
-update();
-
-navigator.sendBeacon?.(
-  analytics.endpoint,
-  JSON.stringify({ key: analytics.api_key, page: location.pathname }),
-);
